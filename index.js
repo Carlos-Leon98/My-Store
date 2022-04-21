@@ -3,21 +3,7 @@ const routerApi = require("./routes")
 const app =  express();
 const port = 3000;
 
-// app.get('/', (req, res) => {
-//   res.send('Hola, mi server en express');
-// })
-
-// app.get('/nueva-ruta', (req, res) => {
-//   res.send('Hola, mi server en un diferente endpoint');
-// })
-
-// app.get('/categories/:categoryId/products/:productId', (req, res) => {
-//   const { categoryId, productId } = req.params;
-//   res.json({
-//     categoryId,
-//     productId
-//   })
-// });
+app.use(express.json());
 
 routerApi(app);
 
