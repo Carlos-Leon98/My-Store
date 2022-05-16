@@ -4,7 +4,7 @@ const usersRouter = require("./usersRouter");
 const categoriesRouter = require("./categoriesRouter");
 
 const routerApi = app => {
-  const router = express.Router();
+  const router = express.Router(); // Main route
   app.use("/api/v1", router)
   router.use("/products", productsRouter);
   router.use("/users", usersRouter);
