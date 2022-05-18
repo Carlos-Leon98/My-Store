@@ -24,26 +24,20 @@ router.get('/:id', (req, res) => {
 router.post("/", (req, res) => {
   const {name, price, img} = req.body;
   const product = service.create({ name, price, img });
-  res.json(product);
+  res.status(201).json(product);
 })
 
 router.patch("/:id", (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  res.json({
-    message: "Update",
-    data: body,
-    id
-  })
+  const product = service.update(id, body)
+  res.json(product)
 })
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
-  const body = req.body;
-  res.json({
-    message: "Delete",
-    id
-  })
+  const rst = service.delete(id)
+  res.json(rst);
 })
 
 

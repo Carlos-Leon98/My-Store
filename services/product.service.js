@@ -20,12 +20,9 @@ class ProductsServices {
   }
 
   create(data) {
-    const { name, price, img } = data;
     const product = {
       id: faker.datatype.uuid(),
-      name,
-      price,
-      img
+      ...data
     };
     this.products.push(product);
     return product
@@ -39,9 +36,23 @@ class ProductsServices {
     return this.products.find(item => item.id === id);
   }
 
-  update(){}
+  update(id, changes) {
+    const index = this.products.findIndex(item => item.id === id);
+    if (index === -1) {
+      throw new Error("Product not found");
+    }
+    this.products[index] = changes;
+    return this.product[index]
+  }
 
-  delete(id){}
+  delete(id) {
+    const index = this.products.findIndex(item => item.id === id);
+    if (index === -1) {
+      throw new Error("Product no found");
+    }
+    this.products.splice(index, 1);
+    return { id }
+  }
 }
 
 module.exports = ProductsServices;
