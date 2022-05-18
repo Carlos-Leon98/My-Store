@@ -19,7 +19,12 @@ class ProductsServices {
     }
   }
 
-  create(){}
+  create(data) {
+    return this.products.push({
+      message: "New product created",
+      data: data
+    })
+  }
 
   find() {
     return this.products;

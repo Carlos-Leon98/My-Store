@@ -23,10 +23,8 @@ router.get('/:id', (req, res) => {
 
 router.post("/", (req, res) => {
   const body = req.body;
-  res.status(201).json({
-    message: "Created",
-    data: body
-  })
+  const product = service.create(body);
+  res.json(product);
 })
 
 router.patch("/:id", (req, res) => {
