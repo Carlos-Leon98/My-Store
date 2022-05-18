@@ -20,10 +20,15 @@ class ProductsServices {
   }
 
   create(data) {
-    return this.products.push({
-      message: "New product created",
-      data: data
-    })
+    const { name, price, img } = data;
+    const product = {
+      id: faker.datatype.uuid(),
+      name,
+      price,
+      img
+    };
+    this.products.push(product);
+    return product
   }
 
   find() {
@@ -36,7 +41,7 @@ class ProductsServices {
 
   update(){}
 
-  delete(){}
+  delete(id){}
 }
 
 module.exports = ProductsServices;

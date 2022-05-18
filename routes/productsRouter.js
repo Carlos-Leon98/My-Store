@@ -22,8 +22,8 @@ router.get('/:id', (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const body = req.body;
-  const product = service.create(body);
+  const {name, price, img} = req.body;
+  const product = service.create({ name, price, img });
   res.json(product);
 })
 
