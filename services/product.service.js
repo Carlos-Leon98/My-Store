@@ -15,7 +15,8 @@ class ProductsServices {
         id: faker.datatype.uuid(),
         name: faker.commerce.productName(),
         price: parseInt(faker.commerce.price(), 10),
-        img: faker.image.imageUrl()
+        img: faker.image.imageUrl(),
+        isBlock: faker.datatype.boolean()
       });
     }
   }
@@ -41,6 +42,9 @@ class ProductsServices {
     const product = this.products.find(item => item.id === id);
     if (!product) {
       throw boonm.notFound("Product Not Found");
+    }
+    if (product.isBlock) {
+      throw boonm.conflict("This product is blocked");
     }
     return product;
   }
