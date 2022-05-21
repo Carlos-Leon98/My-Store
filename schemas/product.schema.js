@@ -8,3 +8,18 @@ const createProductSchema = Joi.object({
   name: name.required(),
   price: price.required()
 });
+
+const updateProdductSchema = Joi.object({
+  name: name,
+  price: price
+});
+
+const getProductSchema = Joi.object({
+  id: id.required()
+})
+
+module.exports = {
+  createProductSchema,
+  updateProdductSchema,
+  getProductSchema
+}
