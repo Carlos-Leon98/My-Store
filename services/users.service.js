@@ -13,8 +13,8 @@ class UsersServices {
         id: faker.datatype.uuid(),
         name: faker.name.findName(),
         city: faker.address.city(),
-        zipCode: faker.address.zipCode(),
-        state: faker.address.state(),
+        zipCode: faker.address.zipCode("#####"),
+        state: faker.address.stateAbbr(),
       })
     };
   }
