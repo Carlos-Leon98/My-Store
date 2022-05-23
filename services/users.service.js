@@ -1,6 +1,8 @@
 const { use } = require("express/lib/router");
 const faker = require("faker");
 
+const getConnection = require("../libs/postgres");
+
 class UsersServices {
   constructor() {
     this.users = [];
@@ -18,8 +20,10 @@ class UsersServices {
       })
     };
   }
-  find() {
-    return this.users;
+  async find() {
+    const client = await getConnection();
+    const response = await client.query('SELECT * FROM tasks')
+    return response.rows;
   }
   findOne(id) {
     return new Promise((resolve, reject) => {
