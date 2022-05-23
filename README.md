@@ -1,3 +1,3 @@
-# Rest-API-backend
+# My store
 
-This is my README.md
+This the backend of a mini e-commerce.
