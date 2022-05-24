@@ -1,7 +1,8 @@
+const boom = require("@hapi/boom");
 const { use } = require("express/lib/router");
 const faker = require("faker");
 
-const getConnection = require("../libs/postgres");
+const { models } = require("../libs/sequelize");
 
 class UsersServices {
   constructor() {
@@ -21,43 +22,28 @@ class UsersServices {
     };
   }
   async find() {
-    const client = await getConnection();
-    const response = await client.query('SELECT * FROM tasks')
-    return response.rows;
+    const response = await models.User.findAll();
+    return response;
   }
   findOne(id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.users.find(user => user.id === id))
-      }, 5000);
-    })
-  }
-  async create(data) {
-    const user = {
-      id: faker.datatype.uuid(),
-      ...data
-    };
-    this.users.push(user);
+    const user = await models.User.findByPk(id);
+    if (!user) {
+      throw boom.notFound("User not Found");
+    }
     return user;
   }
+  async create(data) {
+    const newUser = await models.User.create(data);
+    return newUser;
+  }
   async update(id, data) {
-    const index = this.users.findIndex(user => user.id === id);
-    if (index === -1) {
-      throw new Error("User Not Found");
-    }
-    const user = this.users[index];
-    this.users[index] = {
-      ...user,
-      ...data
-    }
-    return this.users[index];
+    const user = await this.findOne(id);
+    const response = await user.update(data);
+    return response;
   }
   async delete(id) {
-    const index = this.users.findIndex(user => user.id === id);
-    if (index === -1) {
-      throw new Error("User Not Found");
-    }
-    this.users.splice(index, 1);
+    const user = await this.findOne(id);
+    await user.destroy();
     return { id };
   }
 }
